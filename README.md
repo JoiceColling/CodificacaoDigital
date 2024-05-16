@@ -2,8 +2,11 @@
 **Projeto realizado na disciplina de Comunicação de Dados, dentro do curso de Ciência da Computação, no ano de 2019.**
 
 Implemente, em uma linguagem de programação de sua livre escolha, uma aplicação que atenda os seguintes requisitos:
+
 a) Possua uma entrada de dados binários (oito bits)
+
 b) Possua uma escolha entre Codificação ou Modulação
+
 c) Caso a escolha for Codificação, que possa ser escolhida o tipo de Codificação:
   1) Nonreturn to Zero (NRZ), UNIpolar
   2) Nonreturn to Zero-Level (NRZ-L) bipolar
