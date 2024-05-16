@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>Sinais</title>
+		<meta charset="UTF-8">
+	</head>
+
+	<body>
+		<p>Graficos de Sinais:</p>
+		<input type = "array" maxlength="8" placeholder="Informe 8 bits" id="bits">
+		<p>Escolha entre:</p>
+	
+		Codificação: <input type="checkbox" name="TipoCodif" id="myCheck1" onclick="myFunction()">
+		Modulação: <input type="checkbox" name="TipoMod" id="myCheck2"  onclick="myFunction()">
+	
+		<select  name="TipoCodif" id="TipoCodif" onchange = "TipoCodif(this.value)" style="display:none">
+			<option value =""></option>
+			<option value ="1">Nonreturn to Zero (NRZ), UNIpolar</option>
+			<option value ="2">Nonreturn to Zero-Level (NRZ-L) bipolar</option>
+			<option value ="3">Nonreturn to Zero Inverted (NRZI) bipolar</option>
+			<option value ="4">Bipolar - AMI bipolar</option>
+			<option value ="5">Pseudoternary bipolar</option>
+			<option value ="6">Manchester bipolar</option>
+			<option value ="7">Differential Manchester bipolar</option>
+		</select>
+		<select  name="TipoMod" id="TipoMod" onchange = "TipoMod(this.value)" style="display:none">	
+			<option value =""></option>
+			<option value ="8">Amplitude shift keying (ASK)</option>
+			<option value ="9">Frequency shift keying (FSK)</option>
+			<option value ="10">Phase shift keying (PSK)</option>
+		</select>
+
+		<script language = "javascript">
+			function myFunction() {
+				var checkBox1 = document.getElementById("myCheck1");
+				var checkBox2 = document.getElementById("myCheck2");
+				var text = document.getElementById("TipoCodif");
+				var text2 = document.getElementById("TipoMod");
+
+				if (checkBox1.checked == true){
+					text.style.display = "block";
+					document.getElementById('myCheck2').disabled = true;
+				} else {
+					if (checkBox1.checked == false){
+						text.style.display = "none";
+						document.getElementById('myCheck2').disabled = false;
+					}
+				}
+				if (checkBox2.checked == true){
+					text2.style.display = "block";
+					document.getElementById('myCheck1').disabled = true;
+				} else {
+					if (checkBox2.checked == false){
+						text2.style.display = "none";
+						document.getElementById('myCheck1').disabled = false;
+					}
+				}
+				
+			}
+		</script>
+		<script> 
+			function TipoCodif() {
+				var bits = document.getElementById("bits"),
+				bitsValue = bits.value;
+				var valor = document.getElementById("TipoCodif"),
+				valorValue = valor.value;
+				
+				if (valorValue=="1"){
+					for (var i=0; i<8; i++){
+						if (bitsValue[i] == "1"){
+							var img = document.createElement("img");
+							img.src = "1_NRZ-1.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+						if (bitsValue[i] == "0"){
+							var img = document.createElement("img");
+							img.src = "1_NRZ-0.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+					}
+				}
+				if (valorValue=="2"){
+					for (var i=0; i<8; i++){
+						if (bitsValue[i] == "1" && bitsValue[i+1] == "0"){
+							var img = document.createElement("img");
+							img.src = "2_NRZL-1-0.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+						if (bitsValue[i] == "1" && bitsValue[i+1] == "1"){
+							var img = document.createElement("img");
+							img.src = "2_NRZL-1-1.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+						if (bitsValue[i] == "0" && bitsValue[i+1] == "1"){
+							var img = document.createElement("img");
+							img.src = "2_NRZL-0-1.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+						if (bitsValue[i] == "0" && bitsValue[i+1] == "0"){
+							var img = document.createElement("img");
+							img.src = "2_NRZL-0-0.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+						if (i == "7" && bitsValue[i] == "0"){
+							var img = document.createElement("img");
+							img.src = "2_NRZL-0-0.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+						if (i == "7" && bitsValue[i] == "1"){
+							var img = document.createElement("img");
+							img.src = "2_NRZL-1-1.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+					}
+				}
+				if (valorValue=="3"){
+					var lastOne = "positivo";
+					for (var i=0; i<8; i++){
+						if (bitsValue[i] == "0"){
+							if (lastOne == "positivo"){
+								var img = document.createElement("img");
+								img.src = "3_NRZI-pos-0.jpg";
+								var src = document.getElementById("x");
+								src.appendChild(img);
+							}
+							if (lastOne == "negativo"){
+								var img = document.createElement("img");
+								img.src = "3_NRZI-neg-0.jpg";
+								var src = document.getElementById("x");
+								src.appendChild(img);
+							}
+						}
+						if (bitsValue[i] == "1"){
+							if (lastOne == "positivo"){
+								if (bitsValue[i+1] == "1"){
+									var img = document.createElement("img");
+									img.src = "3_NRZI-neg-1.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}else{
+									var img = document.createElement("img");
+									img.src = "3_NRZI-neg-1-0.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}
+							}
+							if (lastOne == "negativo"){
+								if (bitsValue[i+1] == "1"){
+									var img = document.createElement("img");
+									img.src = "3_NRZI-pos-1.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}else{
+									var img = document.createElement("img");
+									img.src = "3_NRZI-pos-1-0.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}
+							}
+							
+							if(lastOne == "positivo"){
+								lastOne = "negativo";
+							}
+							else{
+								lastOne = "positivo"
+							}
+						}
+					}
+				}
+				if (valorValue=="4"){
+					var lastOne = "negativo"
+					for (var i=0; i<8; i++){
+						if (bitsValue[i] == "0"){
+							var img = document.createElement("img");
+							img.src = "4_BIPOLAR-0.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+						if (bitsValue[i] == "1"){
+							if (lastOne == "negativo"){
+								if(bitsValue[i+1] == "0"){
+									var img = document.createElement("img");
+									img.src = "4_BIPOLAR-pos-1-0.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}
+								if(bitsValue[i+1] == "1"){
+									var img = document.createElement("img");
+									img.src = "4_BIPOLAR-pos-1-1.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}
+								if (i == "7" && bitsValue[i] == "1"){
+									var img = document.createElement("img");
+									img.src = "4_BIPOLAR-pos-1-0.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}
+							}
+							if (lastOne == "positivo"){
+								if(bitsValue[i+1] == "0"){
+									var img = document.createElement("img");
+									img.src = "4_BIPOLAR-neg-1-0.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}
+								if(bitsValue[i+1] == "1"){
+									var img = document.createElement("img");
+									img.src = "4_BIPOLAR-neg-1-1.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}
+								if (i == "7" && bitsValue[i] == "1"){
+									var img = document.createElement("img");
+									img.src = "4_BIPOLAR-neg-1-0.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}
+							}
+							
+							if(lastOne == "positivo"){
+								lastOne = "negativo";
+							}
+							else{
+								lastOne = "positivo"
+							}
+						}
+						
+					}
+				}
+				if (valorValue=="5"){
+					var lastZero = "negativo"
+					for (var i=0; i<8; i++){
+						if (bitsValue[i] == "1"){
+							var img = document.createElement("img");
+							img.src = "5_PSEUDO-1.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+						if (bitsValue[i] == "0"){
+							if (lastZero == "negativo"){
+								if(bitsValue[i+1] == "1"){
+									var img = document.createElement("img");
+									img.src = "5_PSEUDO-pos-0-1.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}
+								if(bitsValue[i+1] == "0"){
+									var img = document.createElement("img");
+									img.src = "5_PSEUDO-pos-0-0.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}
+								if (i == "7" && bitsValue[i] == "0"){
+									var img = document.createElement("img");
+									img.src = "5_PSEUDO-pos-0-1.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}
+							}
+							if (lastZero == "positivo"){
+								if(bitsValue[i+1] == "1"){
+									var img = document.createElement("img");
+									img.src = "5_PSEUDO-neg-0-1.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}
+								if(bitsValue[i+1] == "0"){
+									var img = document.createElement("img");
+									img.src = "5_PSEUDO-neg-0-0.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}
+								if (i == "7" && bitsValue[i] == "0"){
+									var img = document.createElement("img");
+									img.src = "5_PSEUDO-neg-0-1.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}
+							}
+							
+							if(lastZero == "positivo"){
+								lastZero = "negativo";
+							}
+							else{
+								lastZero = "positivo"
+							}
+						}
+					}
+				}
+				if (valorValue=="6"){
+					for (var i=0; i<8; i++){
+						if (bitsValue[i] == "1" && bitsValue[i+1] == "0"){
+							var img = document.createElement("img");
+							img.src = "6_MANCH-1-0.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+						if (bitsValue[i] == "1" && bitsValue[i+1] == "1"){
+							var img = document.createElement("img");
+							img.src = "6_MANCH-1-1.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+						if (bitsValue[i] == "0" && bitsValue[i+1] == "1"){
+							var img = document.createElement("img");
+							img.src = "6_MANCH-0-1.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+						if (bitsValue[i] == "0" && bitsValue[i+1] == "0"){
+							var img = document.createElement("img");
+							img.src = "6_MANCH-0-0.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+						if (i == "7" && bitsValue[i] == "0"){
+							var img = document.createElement("img");
+							img.src = "6_MANCH-0-1.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+						if (i == "7" && bitsValue[i] == "1"){
+							var img = document.createElement("img");
+							img.src = "6_MANCH-1-0.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+					}
+				}
+				if (valorValue=="7"){
+					last="negativo";
+					for (var i=0; i<8; i++){
+						if (i=="0"){
+							if (i=="0" && bitsValue[i]=="0"){
+								var img = document.createElement("img");
+								img.src = "7_DIF-MANCH-pos-0.jpg";
+								var src = document.getElementById("x");
+								src.appendChild(img);
+								last="positivo"	
+							}
+							if (i=="0" && bitsValue[i]=="1"){
+								var img = document.createElement("img");
+								img.src = "7_DIF-MANCH-pos-1.jpg";
+								var src = document.getElementById("x");
+								src.appendChild(img);
+								last="positivo"	
+							}
+						}else{
+							if (bitsValue[i]=="0"){
+								if ((bitsValue[i-1]=="1" && last=="negativo") || (bitsValue[i-1]=="0" && last=="negativo")){
+									var img = document.createElement("img");
+									img.src = "7_DIF-MANCH-neg-0.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}else{
+									var img = document.createElement("img");
+									img.src = "7_DIF-MANCH-pos-0.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+								}
+							}
+							
+							if (bitsValue[i]=="1"){
+								if((bitsValue[i-1]=="0" && last=="positivo") || (bitsValue[i-1]=="1" && last=="positivo")){
+									var img = document.createElement("img");
+									img.src = "7_DIF-MANCH-neg-1.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+									last="negativo"
+								}else{
+									var img = document.createElement("img");
+									img.src = "7_DIF-MANCH-pos-1.jpg";
+									var src = document.getElementById("x");
+									src.appendChild(img);
+									last="positivo"
+								}
+							}
+						}
+					}
+				}
+			}
+		</script>
+			
+		<script>
+		function TipoMod(){
+			var bits = document.getElementById("bits"),
+				bitsValue = bits.value;
+			var valor = document.getElementById("TipoMod"),
+				valorValue = valor.value;
+				
+				if (valorValue=="8"){
+					for (var i=0; i<8; i++){
+						if (bitsValue[i] == "1"){
+							var img = document.createElement("img");
+							img.src = "8_ASK-1.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+						if (bitsValue[i] == "0"){
+							var img = document.createElement("img");
+							img.src = "8_ASK-0.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+					}
+				}
+				if (valorValue=="9"){
+					for (var i=0; i<8; i++){
+						if (bitsValue[i] == "1"){
+							var img = document.createElement("img");
+							img.src = "9_FSK-1.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+						if (bitsValue[i] == "0"){
+							var img = document.createElement("img");
+							img.src = "9_FSK-0.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+					}
+				}
+				if (valorValue=="10"){
+					for (var i=0; i<8; i++){
+						if (bitsValue[i] == "1"){
+							var img = document.createElement("img");
+							img.src = "10_PSK-1.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+						if (bitsValue[i] == "0"){
+							var img = document.createElement("img");
+							img.src = "10_PSK-0.jpg";
+							var src = document.getElementById("x");
+							src.appendChild(img);
+						}
+					}
+				}
+			}
+		</script>
+		<script >
+			function verificaCheckbox () {
+				if(document.getElementById('ch_Sim').checked){  
+					document.getElementById('ch_Nao').checked = false;    
+				}
+				else if (document.getElementById('ch_Nao').checked){  
+					document.getElementById('ch_Sim').checked = false;
+				}
+			}
+		</script>
+		<div id="x"></div>
+	</body>
+</html>
